@@ -1,0 +1,28 @@
+<html>
+
+<body onload="sendauth()">
+    <h1>
+        waiting 3D-Secure Authentication
+    </h1>
+    <img src="/static/images/giphy.gif" alt="spinner">
+</body>
+
+<script>
+
+
+    function sendauth() {
+
+        console.log(httpPost('/3ds-server/api/auth'))
+        window.location.href = "/static/authNotify.html";
+    }
+
+
+    function httpPost(theUrl) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("POST", theUrl, false); // false for synchronous request
+        xmlHttp.send(null);
+        return xmlHttp.responseText;
+    }
+</script>
+
+</html>

@@ -1,0 +1,45 @@
+<html>
+
+<body>
+    <h1>
+        ordine
+    </h1>
+    <table border="1">
+        <tr>
+            <th>descrizione</td>
+            <th>qtà</td>
+            <th>€</td>
+        </tr>
+        <tbody>
+            <tr>
+                <td>Pollo</td>
+                <td>1</td>
+                <td>5.50</td>
+            </tr>
+        </tbody>
+
+    </table>
+    <p>
+        <button onclick="checkout()">Confirm Order</button>
+    </p>
+
+
+
+    <!--
+<iframe id src="/3ds-server/frame.html" frameborder="1"></iframe>
+    -->
+</body>
+
+<script lang="text/javascript">
+    function checkout() {
+        var iframe = document.createElement("iframe");
+
+        var att = document.createAttribute("src"); // Create a "class" attribute
+        att.value = "/3ds-server/frame.html"; // Set the value of the class attribute
+        iframe.setAttributeNode(att);
+
+        document.body.appendChild(iframe);
+    }
+</script>
+
+</html>
