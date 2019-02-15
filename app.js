@@ -61,7 +61,7 @@ app.post('/3ds-server/api/auth', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-    res.send('Hello World!');
+    res.redirect('/merchant-website/index.html');
 });
 
 
