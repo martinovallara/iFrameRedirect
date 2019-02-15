@@ -3,9 +3,15 @@ var express = require('express');
 var request = require('request');
 var app = express();
 var morgan = require('morgan');
-
+var util = require('util');
+var morganBody=require('morgan-body');
 app.set('view engine', 'ejs');
-app.use(morgan('combined'));
+
+app.use(express.json())  
+
+morganBody(app);
+
+app.use(morgan('short'));
 app.use('/static', express.static('public'));
 app.use('/merchant-website', express.static('public/views'));
 app.use('/3ds-server/views', express.static('3ds-server/views'));
@@ -15,15 +21,19 @@ app.use('/acs', express.static('acs'));
 app.set('views', path.join(__dirname, '/public'));
 
 app.post('/3ds-server-gateway/init', function (req, res) {
+    console.log('req.query: ' + req.query.pan);
+    console.log('req.params: ' + req.params.pan);
+    console.log('req.body: ' + JSON.stringify(req.body));
+
     request({
         url: 'http://localhost:3000/3ds-server/api/init',
         method: 'POST',
-        json: {pan: '123'}
-      }, function(error, response, body){
+        json: req.body
+    }, function (error, response, body) {
 
-        console.log('response 3ds-server/init' + body);
+        console.log('response 3ds-server/init:' + JSON.stringify(body));
 
-      });
+    });
 
 
     //res.sendFile(path.join(__dirname, '/3ds-server-gateway/views/init.html'));
@@ -44,6 +54,9 @@ app.post('/3ds-server/api/verify', function (req, res) {
 });
 
 app.post('/3ds-server/api/init', function (req, res) {
+    console.log('req.query: ' + req.query.pan);
+    console.log('req.params: ' + req.params.pan);
+    console.log('req.body: ' + JSON.stringify(req.body));
 
     setTimeout(sendStatus, 1000);
 
