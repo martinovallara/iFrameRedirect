@@ -1,0 +1,28 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Notify</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="/static/scripts/index.js"></script>
+</head>
+
+<body>
+    <h1>
+        frame for send browser information
+    </h1>
+    <script>
+        window.setTimeout(sendBrowserInformation, 5000);
+
+        function sendBrowserInformation() {
+
+            console.log(httpPost('/3ds-server/api/browserInformation'))
+            window.location.href = "/static/gdiNotify.html";
+        }
+
+    </script>
+</body>
+
+
+</html>

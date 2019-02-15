@@ -19,9 +19,19 @@
         </tbody>
 
     </table>
-    <p>
-        <button onclick="checkout()">Confirm Order</button>
-    </p>
+    <hr />
+    <form action="/3ds-server-gateway/init" method="post">
+        <label for="pan">pan</label>
+        <input type="number" name="pan" id="pan"></input>
+        <input type="submit" value="Confirm order"></input>
+        <p>
+            
+            <!--
+                    <button onclick="checkout()">Confirm Order</button>
+            -->
+        </p>
+
+    </form>
 
 
 
@@ -32,6 +42,8 @@
 
 <script lang="text/javascript">
     function checkout() {
+        console.log('Inject iframe to gdiUrl:/3ds-server/frame.html')
+
         var iframe = document.createElement("iframe");
 
         var att = document.createAttribute("src"); // Create a "class" attribute

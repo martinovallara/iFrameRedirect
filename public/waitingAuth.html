@@ -9,11 +9,10 @@
 
 <script>
 
-
     function sendauth() {
-
-        console.log(httpPost('/3ds-server/api/auth'))
-        window.location.href = "/static/authNotify.html";
+        console.log('start waiting auth response');
+        console.log('response /3ds-server/api/auth:' + httpPost('/3ds-server/api/auth'))
+        window.location.href = "/acs/auth.html";
     }
 
 

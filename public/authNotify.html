@@ -16,8 +16,8 @@
 
 <script>
     function sendVerify() {
-
-        console.log(httpPost('/3ds-server/api/verify'))
+        console.log('authNotify recived');
+        console.log('response /3ds-server/api/verify:' + httpPost('/3ds-server/api/verify'))
         window.location.href = "/static/endTransaction.html";
     }
 </script>

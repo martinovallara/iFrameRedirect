@@ -8,19 +8,19 @@
     <script src="/static/scripts/index.js"></script>
 </head>
 
-<body onload="parentRedirect()">
+<body>
     <h1>
-        Notify
+        Auth form
     </h1>
+    <button onclick='authNotify()'>SEND OTP</button>
+    <script>
+
+        function authNotify() {
+
+            window.location.href = "/static/authNotify.html";
+        }
+    </script>
 </body>
 
-
-<script>
-    function parentRedirect() {
-        console.log('gdiNotify recived');
-        window.top.location.href = "/static/waitingAuth.html";
-    }
-
-</script>
 
 </html>
