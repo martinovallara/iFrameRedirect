@@ -1,24 +1,11 @@
 <html>
 
-<body onload="checkout()">
+<body>
     <h1>
         Start 3D-Secure authentication
     </h1>
 <p>gdiUrl:<%= gdiUrl %></p>
 </body>
-
-<script lang="text/javascript">
-    function checkout() {
-        console.log('Inject iframe to gdiUrl:/3ds-server/frame.html')
-
-        var iframe = document.createElement("iframe");
-
-        var att = document.createAttribute("src"); // Create a "class" attribute
-        att.value = "/3ds-server/views/frame.html"; // Set the value of the class attribute
-        iframe.setAttributeNode(att);
-
-        document.body.appendChild(iframe);
-    }
-</script>
+<iframe src="<%= gdiUrl %>" frameborder="1"></iframe>
 
 </html>

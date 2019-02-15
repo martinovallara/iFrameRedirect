@@ -17,8 +17,8 @@
 
         function sendBrowserInformation() {
 
-            console.log(httpPost('/3ds-server/api/browserInformation'))
-            window.location.href = "/static/gdiNotify.html";
+            console.log("send browser info:" + httpPost('/3ds-server/api/browserInformation'))
+            window.location.href = "<%= gdiNotifyUrl%>"; // passata dalla init
         }
 
     </script>
