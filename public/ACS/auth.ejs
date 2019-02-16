@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>challenge Auth form</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <h1>
+        challenge Auth form
+    </h1>
+    <form action="/ACS/checkOTP" method="post">
+        <input type="number" name="otpValue" id="otpValue"></input>
+        <input type="submit" value="sendOTP">SEND OTP</input>
+    </form>
+    <!--
+        <button onclick='authNotify()'>SEND OTP</button>
+    <script>
+        function authNotify() {
+
+            window.location.href = "/static/authNotify.html";
+        }
+    </script>
+-->
+
+</body>
+
+
+</html>

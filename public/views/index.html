@@ -1,5 +1,11 @@
 <html>
-
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Notify</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+    </head>
 <body>
     <h1>
         ordine
@@ -20,38 +26,10 @@
 
     </table>
     <hr />
-    <form action="/3ds-server-gateway/init" method="post">
+    <form action="/3ds-server-gateway/init" method="post" id="confirmOrderForm">
         <label for="pan">pan</label>
         <input type="number" name="pan" id="pan"></input>
         <input type="submit" value="Confirm order"></input>
-        <p>
-            
-            <!--
-                    <button onclick="checkout()">Confirm Order</button>
-            -->
-        </p>
-
     </form>
-
-
-
-    <!--
-<iframe id src="/3ds-server/frame.html" frameborder="1"></iframe>
-    -->
 </body>
-
-<script lang="text/javascript">
-    function checkout() {
-        console.log('Inject iframe to gdiUrl:/3ds-server/frame.html')
-
-        var iframe = document.createElement("iframe");
-
-        var att = document.createAttribute("src"); // Create a "class" attribute
-        att.value = "/3ds-server/frame.html"; // Set the value of the class attribute
-        iframe.setAttributeNode(att);
-
-        document.body.appendChild(iframe);
-    }
-</script>
-
 </html>

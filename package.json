@@ -1,15 +1,18 @@
 {
   "name": "iframeredirect",
   "version": "1.0.0",
-  "description": "",
+  "description": "spike igd 3ds-server integration",
   "main": "app.js",
   "scripts": {
     "test": "test"
   },
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/martinovallara/iFrameRedirect.git"
+  },
+  "author": "martino",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "morgan": "^1.9.1",
