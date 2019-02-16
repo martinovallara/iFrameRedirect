@@ -12,16 +12,11 @@
     function sendauth() {
         console.log('start waiting auth response');
         console.log('response /3ds-server/api/auth:' + httpPost('/3ds-server/api/auth'))
-        window.location.href = "/acs/auth.html";
+        window.location.href = "/acs/auth";
     }
 
 
-    function httpPost(theUrl) {
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open("POST", theUrl, false); // false for synchronous request
-        xmlHttp.send(null);
-        return xmlHttp.responseText;
-    }
+
 </script>
 
 </html>
