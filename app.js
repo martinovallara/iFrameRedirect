@@ -19,10 +19,15 @@ app.use('/static', express.static('public'));
 app.use('/merchant-website', express.static('public/views'));
 app.use('/3ds-server/views', express.static('3ds-server/views'));
 app.use('/3ds-server-gateway/views', express.static('/3ds-server-gateway/views'));
-app.use('/acs', express.static('acs'));
+//app.use('/acs', express.static('acs'));
 
 app.set('views', path.join(__dirname, '/public'));
+//------ merchant-website -------------------//
 
+app.get('/merchant-website/endTransaction', function (req, res) {
+    res.render('merchant-website/endTransaction',
+        { status: req.query.status });
+});
 
 //-----  3ds-server-gateway-----------------//
 
@@ -37,9 +42,19 @@ app.post('/3ds-server-gateway/init', function (req, res) {
             gdiUrl: body.gdiUrl
         })
     });
-
 });
 
+app.get('/3ds-server-gateway/authNotify', function (req, res) {
+
+    request({
+        url: 'http://localhost:3000/3ds-server/api/verify',
+        method: 'GET',
+        json: {}
+    }, function (error, response, body) {
+        res.redirect('/merchant-website/endTransaction?status=' + body.status);
+    });
+
+});
 
 //--------------- 3DS-Server --------------------------------------//
 
@@ -65,8 +80,8 @@ app.post('/3ds-server/api/auth', function (req, res) {
     }
 });
 
-app.post('/3ds-server/api/verify', function (req, res) {
-    res.sendStatus(200);
+app.get('/3ds-server/api/verify', function (req, res) {
+    res.status(200).send({ status: checkOtpResponse });
 });
 
 //---- 3DS-Server -- hidden service ------------//
@@ -77,7 +92,6 @@ app.get('/3ds-server/frame', function (req, res) {
 });
 
 app.post('/3ds-server/api/browserInformation', function (req, res) {
-    //res.redirect('/static/gdiNotify.html');
     res.sendStatus(200);
 });
 
@@ -87,18 +101,28 @@ app.post('/3ds-server/api/browserInformation', function (req, res) {
 
 
 //------- ACS ----- //
-
+var checkOtpResponse;
+var message;
 app.post('/acs/checkotp', function (req, res) {
+    message = "";
+    checkOtpResponse = req.body.otpValue === '123456' ? 'AUTHENTICATED' : 'DENIED';
 
-    var checkOtpResponse = req.otpValue === '123456' ? 'AUTHENTICATED' : 'DENIED';
+    if (checkOtpResponse === 'DENIED') {
+        message = "codice non valido";
+        res.redirect('/acs/auth')
+    }
 
-    res.render('3ds-server-gateway/init', {
-        transStatus: checkOtpResponse
-    });
+    res.redirect('/3ds-server-gateway/authNotify');
+});
+
+app.get('/acs/auth', function (req, res) {
+    var renderData = { message: message };
+    message = "";
+    res.render('acs/auth', renderData);
 
 });
 
-
+//-----------------------------------------------------------------
 app.get('/', function (req, res) {
     res.redirect('/merchant-website/index.html');
 });

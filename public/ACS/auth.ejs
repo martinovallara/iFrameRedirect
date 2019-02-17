@@ -12,8 +12,16 @@
         challenge Auth form
     </h1>
     <form action="/ACS/checkOTP" method="post">
-        <input type="number" name="otpValue" id="otpValue"></input>
-        <input type="submit" value="sendOTP">SEND OTP</input>
+        <p>
+            <label for="otpValue">inerisci valore ricevuto via SMS</label>
+        </p>
+        <p>
+            <input type="number" name="otpValue" id="otpValue"></input>
+        </p>
+        <p>
+            <input type="submit" value="sendOTP"><%= message %></input>
+        </p>
+
     </form>
     <!--
         <button onclick='authNotify()'>SEND OTP</button>
