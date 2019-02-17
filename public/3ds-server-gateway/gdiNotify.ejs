@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Notify</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="/static/scripts/index.js"></script>
+
 </head>
 
 <body onload="parentRedirect()">
@@ -18,9 +18,8 @@
 <script>
     function parentRedirect() {
         console.log('gdiNotify recived');
-        window.top.location.href = "/static/waitingAuth.html";
+        window.top.location.href = "/3ds-server-gateway/waitingAuth";
     }
-
 </script>
 
 </html>
