@@ -1,12 +1,14 @@
 <html>
 
-<body onload="sendauth()">
+<body>
     <h1>
         waiting 3D-Secure Authentication
     </h1>
     <img src="/static/images/giphy.gif" alt="spinner">
+    <iframe src="<%= authUrl %>" frameborder="1" height="200"></iframe>
+
 </body>
 
-<iframe src="<%= authUrl %>" frameborder="1"></iframe>
+
 
 </html>

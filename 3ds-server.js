@@ -26,9 +26,12 @@ function define3dsServer(app) {
     });
 
     app.get('/3ds-server/api/verify', function (req, res) {
-        res.json({
-            status: checkOtpResponse
-        });
+        /* res.json({
+             status: checkOtpResponse
+         });
+ */
+
+        res.json({ status: checkOtpResponse });
     });
 
     //---- 3DS-Server -- hidden service ------------//
@@ -41,6 +44,12 @@ function define3dsServer(app) {
     app.post('/3ds-server/api/browserInformation', function (req, res) {
         res.sendStatus(200);
     });
+    var checkOtpResponse = null;
+    app.post('/3ds-server/api/ResultRequest', function (req, res) {
+
+        checkOtpResponse = req.body.checkOtpResponse;
+        res.sendStatus(200);
+    })
 };
 
 module.exports = define3dsServer;

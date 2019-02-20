@@ -2,6 +2,10 @@ var request = require('request');
 
 function define3dsServerGateway(app) {
     //-----  3ds-server-gateway-----------------//
+
+
+    //--- API esposte verso merchant ------//
+
     app.post('/3ds-server-gateway/init', function (req, res) {
         request({
             url: 'http://localhost:3000/3ds-server/api/init',
@@ -13,7 +17,16 @@ function define3dsServerGateway(app) {
             });
         });
     });
+
+     //------- API esposte verso 3DS-Server ---------// 
+     app.get('/3ds-server-gateway/gdiNotify', function (req, res) {
+
+        res.render('3ds-server-gateway/gdiNotify')
+
+    });
+
     app.get('/3ds-server-gateway/authNotify', function (req, res) {
+        /*
         request({
             url: 'http://localhost:3000/3ds-server/api/verify',
             method: 'GET',
@@ -21,14 +34,12 @@ function define3dsServerGateway(app) {
         }, function (error, response, body) {
             res.redirect('/merchant-website/endTransaction?status=' + body.status);
         });
-    });
-
-    app.get('/3ds-server-gateway/gdiNotify', function (req, res) {
-
-        res.render('3ds-server-gateway/gdiNotify')
+     
+        */
+        res.render('3ds-server-gateway/authNotify');
 
     });
-
+    // ----- private API ----------- // 
     app.get('/3ds-server-gateway/waitingAuth', function (req, res) {
         request({
             url: 'http://localhost:3000/3ds-server/api/auth',
@@ -43,7 +54,16 @@ function define3dsServerGateway(app) {
                 console.log('non challenge!!!')
                 res.status(500);
             }
+        });
+    });
 
+    app.get('/3ds-server-gateway/verify', function (req, res) {
+        request({
+            url: 'http://localhost:3000/3ds-server/api/verify',
+            method: 'GET',
+            json: {}
+        }, function (error, response, body) {
+            res.redirect('/merchant-website/endTransaction?status=' + body.status);
         });
     });
 
