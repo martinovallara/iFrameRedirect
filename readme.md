@@ -2,6 +2,7 @@
 
 esempio di implementazione mixed step by Ivan L.B.
 lo spike simula interazione tra i seguenti web-server
+
 |app | port|
 |-|-|
 |merchant-website  |  3000|
