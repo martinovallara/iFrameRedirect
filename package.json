@@ -4,6 +4,7 @@
   "description": "spike igd 3ds-server integration",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "test"
   },
   "repository": {
