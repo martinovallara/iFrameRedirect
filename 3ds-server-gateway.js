@@ -1,14 +1,29 @@
-var request = require('request');
 
-function define3dsServerGateway(app) {
+var request = require('request');
+var path = require('path');
+var express = require('express');
+var morganBody = require('morgan-body');
+
+function define3dsServerGateway(phoenixApp) {
+
     //-----  3ds-server-gateway-----------------//
 
+    phoenixApp.set('view engine', 'ejs');
 
+    phoenixApp.use('/static', express.static('public'));
+    phoenixApp.use(express.json());
+    phoenixApp.use(express.urlencoded({
+        extended: true
+    }));
+    phoenixApp.set('views', path.join(__dirname, '/public'));
+    phoenixApp.use('/3ds-server-gateway/views', express.static('/3ds-server-gateway/views'));
+
+    morganBody(phoenixApp);
     //--- API esposte verso merchant ------//
 
-    app.post('/3ds-server-gateway/init', function (req, res) {
+    phoenixApp.post('/3ds-server-gateway/init', function (req, res) {
         request({
-            url: 'http://localhost:3000/3ds-server/api/init',
+            url: 'http://localhost:3002/3ds-server/api/init',
             method: 'POST',
             json: req.body
         }, function (error, response, body) {
@@ -18,31 +33,21 @@ function define3dsServerGateway(app) {
         });
     });
 
-     //------- API esposte verso 3DS-Server ---------// 
-     app.get('/3ds-server-gateway/gdiNotify', function (req, res) {
+    //------- API esposte verso 3DS-Server ---------// 
+    phoenixApp.get('/3ds-server-gateway/gdiNotify', function (req, res) {
 
         res.render('3ds-server-gateway/gdiNotify')
 
     });
 
-    app.get('/3ds-server-gateway/authNotify', function (req, res) {
-        /*
-        request({
-            url: 'http://localhost:3000/3ds-server/api/verify',
-            method: 'GET',
-            json: {}
-        }, function (error, response, body) {
-            res.redirect('/merchant-website/endTransaction?status=' + body.status);
-        });
-     
-        */
+    phoenixApp.get('/3ds-server-gateway/authNotify', function (req, res) {
         res.render('3ds-server-gateway/authNotify');
 
     });
     // ----- private API ----------- // 
-    app.get('/3ds-server-gateway/waitingAuth', function (req, res) {
+    phoenixApp.get('/3ds-server-gateway/waitingAuth', function (req, res) {
         request({
-            url: 'http://localhost:3000/3ds-server/api/auth',
+            url: 'http://localhost:3002/3ds-server/api/auth',
             method: 'POST',
             json: {}
         }, function (error, response, body) {
@@ -57,16 +62,21 @@ function define3dsServerGateway(app) {
         });
     });
 
-    app.get('/3ds-server-gateway/verify', function (req, res) {
+    phoenixApp.get('/', function (req, res) {
+        res.send("I'm phoenix");
+    });
+    
+
+    phoenixApp.get('/3ds-server-gateway/verify', function (req, res) {
         request({
-            url: 'http://localhost:3000/3ds-server/api/verify',
+            url: 'http://localhost:3002/3ds-server/api/verify',
             method: 'GET',
             json: {}
         }, function (error, response, body) {
-            res.redirect('/merchant-website/endTransaction?status=' + body.status);
+            res.redirect('http://localhost:3000/merchant-website/endTransaction?status=' + body.status);
         });
     });
 
 };
 
-module.exports = define3dsServerGateway;
+module.exports = define3dsServerGateway;    

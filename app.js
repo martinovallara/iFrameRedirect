@@ -1,6 +1,9 @@
-var path = require('path');
+
 var express = require('express');
-var app = express();
+var merchantApp = express();
+var phoenixApp = express();
+var treeDsServerApp = express();
+var ACSApp = express();
 var morganBody = require('morgan-body');
 
 const define3dsServerGateway = require('./3ds-server-gateway');
@@ -8,36 +11,20 @@ const define3dsServer = require('./3ds-server');
 const defineMerchantWebSite = require('./merchant-website-server');
 const defineACSServer = require('./acs-server');
 
-app.set('view engine', 'ejs');
+defineMerchantWebSite(merchantApp);
+define3dsServerGateway(phoenixApp);
+define3dsServer(treeDsServerApp);
+defineACSServer(ACSApp);
 
-app.use(express.json());
-app.use(express.urlencoded({
-    extended: true
-}));
-
-morganBody(app);
-
-//app.use(morgan('short'));
-app.use('/static', express.static('public'));
-app.use('/merchant-website', express.static('public/views'));
-app.use('/3ds-server/views', express.static('3ds-server/views'));
-app.use('/3ds-server-gateway/views', express.static('/3ds-server-gateway/views'));
-//app.use('/acs', express.static('acs'));
-
-app.set('views', path.join(__dirname, '/public'));
-
-defineMerchantWebSite(app);
-define3dsServerGateway(app);
-define3dsServer(app);
-defineACSServer(app);
-
-
-//-----------------------------------------------------------------
-app.get('/', function (req, res) {
-    res.redirect('/merchant-website/index.html');
-});
-
-
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!');
+merchantApp.listen(3000, function () {
+    console.log('started merchant-website app listening on port 3000!');
+    phoenixApp.listen(3001,function (){
+        console.log('started phoenix app listening on port 3001!')
+        treeDsServerApp.listen(3002,function (){
+            console.log('started 3DS-server app listening on port 3002!')
+            ACSApp.listen(3003,function (){
+                console.log('started ACS app listening on port 3003!')
+            })
+        })
+    })
 });

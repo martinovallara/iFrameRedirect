@@ -1,14 +1,16 @@
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Notify</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
- 
-    </head>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ordine</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+</head>
+
 <body>
     <h1>
-        ordine
+        Merchant Domain: Ordine
     </h1>
     <table border="1">
         <tr>
@@ -26,10 +28,11 @@
 
     </table>
     <hr />
-    <form action="/3ds-server-gateway/init" method="post" id="confirmOrderForm">
+    <form action="http://localhost:3001/3ds-server-gateway/init" method="post" id="confirmOrderForm">
         <label for="pan">pan</label>
         <input type="number" name="pan" id="pan"></input>
         <input type="submit" value="Confirm order"></input>
     </form>
 </body>
+
 </html>
