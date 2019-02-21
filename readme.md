@@ -2,12 +2,12 @@
 
 esempio di implementazione mixed step by Ivan L.B.
 lo spike simula interazione tra i seguenti web-server
-
-
- |merchant-website  | app listening on port 3000|
- |phoenix  | app listening on port 3001|
- |3DS-server  | app listening on port 3002|
- |ACS | app listening on port 3003|
+|app | port|
+|-|-|
+|merchant-website  |  3000|
+|phoenix  |  3001|
+|3DS-server  |  3002|
+|ACS |  3003|
 
 ## Installation
 
