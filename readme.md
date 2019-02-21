@@ -1,6 +1,13 @@
 # spike integration 3ds-server n&ts
 
 esempio di implementazione mixed step by Ivan L.B.
+lo spike simula interazione tra i seguenti web-server
+
+
+ |merchant-website  | app listening on port 3000|
+ |phoenix  | app listening on port 3001|
+ |3DS-server  | app listening on port 3002|
+ |ACS | app listening on port 3003|
 
 ## Installation
 
