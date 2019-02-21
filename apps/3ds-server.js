@@ -5,20 +5,11 @@ var morganBody = require('morgan-body');
 function define3dsServer(treeDsServerApp) {
     //--------------- 3DS-Server --------------------------------------//
 
-    treeDsServerApp.use('/static', express.static('public'));
-    treeDsServerApp.set('view engine', 'ejs');
+    settings(treeDsServerApp);
 
-    treeDsServerApp.use(express.json());
-    treeDsServerApp.use(express.urlencoded({
-        extended: true
-    }));
-    treeDsServerApp.set('views', path.join(__dirname, '/public'));
-    treeDsServerApp.use('/3ds-server/views', express.static('3ds-server/views'));
-    morganBody(treeDsServerApp);
-    //-------------------------------------------------------------//
     treeDsServerApp.post('/3ds-server/api/init', function (req, res) {
 
-        setTimeout(sendStatus, 2000);
+        setTimeout(sendStatus, 3000);
 
         function sendStatus() {
             res.json({
@@ -28,7 +19,7 @@ function define3dsServer(treeDsServerApp) {
     });
 
     treeDsServerApp.post('/3ds-server/api/auth', function (req, res) {
-        setTimeout(sendStatus, 2000);
+        setTimeout(sendStatus, 3000);
 
         function sendStatus() {
             res.json({
@@ -45,7 +36,8 @@ function define3dsServer(treeDsServerApp) {
     //---- 3DS-Server -- hidden service ------------//
     treeDsServerApp.get('/3ds-server/frame', function (req, res) {
         res.render('3ds-server/frame', {
-            gdiNotifyUrl: 'http://localhost:3001/3ds-server-gateway/gdiNotify' // passato dalla init
+            gdiNotifyUrl: 'http://localhost:3001/phoenix/gdiNotify' // passato dalla init
+            //gdiNotifyUrl: 'http://localhost:3001/phoenix/waitingAuth'
         })
     });
 
@@ -61,3 +53,14 @@ function define3dsServer(treeDsServerApp) {
 };
 
 module.exports = define3dsServer;
+
+function settings(treeDsServerApp) {
+    treeDsServerApp.use('/static', express.static('views'));
+    treeDsServerApp.set('view engine', 'ejs');
+    treeDsServerApp.use(express.json());
+    treeDsServerApp.use(express.urlencoded({
+        extended: true
+    }));
+    treeDsServerApp.set('views', path.join(__dirname, '../views'));
+    morganBody(treeDsServerApp);
+}

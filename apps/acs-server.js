@@ -5,26 +5,24 @@ var morganBody = require('morgan-body');
 
 const DENIED = 'DENIED';
 const AUTHENTICATED = 'AUTHENTICATED';
-function defineACSServer(AcsServer) {
+function defineACSServer(acsServer) {
     //--------------- ACS-Server --------------------------------------//
 
-    AcsServer.use('/static', express.static('public'));
-    AcsServer.set('view engine', 'ejs');
+    settings(acsServer);
 
-    AcsServer.use(express.json());
-    AcsServer.use(express.urlencoded({
-        extended: true
-    }));
-    AcsServer.set('views', path.join(__dirname, '/public'));
-    AcsServer.use('/acs-server/views', express.static('acs-server/views'));
-    morganBody(AcsServer);
-
-
-    //----------------------------------------------------------------//
+    
     var checkOtpResponse;
     var message;
-    var renderData = {};
-    AcsServer.post('/acs/checkotp', function (req, res) {
+    var checkMessage = {};
+
+// form per inserimento otp
+    acsServer.get('/acs/auth', function (req, res) {
+        checkMessage = { message: message };
+        message = "";
+        res.render('acs/auth', checkMessage);
+    });
+
+    acsServer.post('/acs/checkotp', function (req, res) {
         message = "";
         checkOtpResponse = req.body.otpValue === '123456' ? AUTHENTICATED : 'DENIED';
 
@@ -35,27 +33,33 @@ function defineACSServer(AcsServer) {
         }, function (error, response, body) {
             if (error != null) {
                 res.sendStatus(500);
+                return;
             }
 
             if (checkOtpResponse === DENIED) {
                 message = "codice non valido";
-                renderData = { message: message };
-                res.render('acs/auth', renderData);
-                return
+                checkMessage = { message: message };
+                res.render('acs/auth', checkMessage);
+                return;
             };
-            res.redirect('http://localhost:3001/3ds-server-gateway/authNotify'); //<<-- fornito dalla init con authNotifyUrl. 
+            res.redirect('http://localhost:3001/phoenix/authNotify'); //<<-- fornito dalla init con authNotifyUrl. 
                                                             //verificare se nella documentazione EMVco 
                                                             //nella Areq, è prevista un campo dove passare 
                                                             //l'indirizzo di ritorno al termine della 
         });
     });
 
-    AcsServer.get('/acs/auth', function (req, res) {
-        renderData = { message: message };
-        message = "";
-        res.render('acs/auth', renderData);
-
-    });
 };
 
 module.exports = defineACSServer;
+
+function settings(acsServer) {
+    acsServer.use('/static', express.static('views'));
+    acsServer.set('view engine', 'ejs');
+    acsServer.use(express.json());
+    acsServer.use(express.urlencoded({
+        extended: true
+    }));
+    acsServer.set('views', path.join(__dirname, '../views'));
+    morganBody(acsServer);
+}
