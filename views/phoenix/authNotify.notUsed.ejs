@@ -10,15 +10,22 @@
 
 <body style="background-color: lightgreen" onload="parentRedirect()">
     <h1>
-        Auth Notify
+        Phoenix domain: Auth Notify (non usata)
+        il phonix ridirige alla verify.
     </h1>
+    <p>
+        Modifico la href location della finestra padre
+        scatenando la verify.
+    </p>
 </body>
 
 
 <script>
     function parentRedirect() {
-        console.log('gdiNotify recived');
-        window.top.location.href = "/phoenix/verify";
+        setTimeout(function () {
+            console.log('gdiNotify recived');
+            window.top.location.href = "/phoenix/verify";
+        }, 3000)
     }
 </script>
 
