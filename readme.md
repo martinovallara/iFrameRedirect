@@ -44,21 +44,19 @@ Uno degli scopi principale dello spike è saggiare l'interazione con l'iframe na
 riporto le specifiche dei fornitori.
 
 
-```
-
-il gdiUrl va aperto in un iframe sul sito che sta inizializzando la transazione 3DS.
+_il gdiUrl va aperto in un iframe sul sito che sta inizializzando la transazione 3DS.
 Una volta conclusa la parte di acquisizione dati, 
-**l'iframe browser verrà rediretto sul gdiNotifyUrl e a quel punto potrete chiudere l'iframe**.
+**l'iframe browser verrà rediretto sul gdiNotifyUrl e a quel punto potrete chiudere l'iframe**._
 
-Terminata questa fase sarà necessario invocare il metodo auth()
+_Terminata questa fase sarà necessario invocare il metodo auth()_
 
-- Se non è prevista challenge la transazione 3DS si conclude.
+_- Se non è prevista challenge la transazione 3DS si conclude_
 
-- Se prevista una challenge sarà necessario aprire redirigere il browser(o aprire un altro iframe) verso l'authUrl.
+_- Se prevista una challenge sarà necessario aprire redirigere il browser(o aprire un altro iframe) verso l'authUrl.
 Terminata la fase di challenge, il browser verrà rediretto sul authNotifyUrl.
-A questo punto dovrete invocare il metodo verify().
+A questo punto dovrete invocare il metodo verify()_
 
-```
+
 
 l'implementazione del passo in grassetto è stata realizzata rispondendo alla gdiNotify con un html contenente un javascript che imposti l'href location della finestra padre su un indirizzo che prosegue con la auth.
 
