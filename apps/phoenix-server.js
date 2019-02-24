@@ -1,8 +1,7 @@
-
-var request = require('request');
-var path = require('path');
-var express = require('express');
-var morganBody = require('morgan-body');
+const request = require('request');
+const path = require('path');
+const express = require('express');
+const morganBody = require('morgan-body');
 
 function definePhoenix(phoenixApp) {
 
@@ -21,7 +20,30 @@ function definePhoenix(phoenixApp) {
                 gdiUrl: body.gdiUrl
             });
         });
-    });
+    })
+
+    phoenixApp.get('/phoenix/init', function (req, res) {
+
+        res.render('phoenix/init', {
+            gdiUrl: req.query.gdiUrl
+        });
+
+    })
+
+    phoenixApp.post('/phoenix/api/init', function (req, res) {
+        request({
+            url: 'http://localhost:3002/3ds-server/api/init',
+            method: 'POST',
+            json: req.body
+        }, function (error, response, body) {
+            res.json({
+                gdiUrl: body.gdiUrl
+            });
+        });
+    })
+
+
+
 
     //------- API esposte verso 3DS-Server ---------// 
     /* 
@@ -33,7 +55,7 @@ function definePhoenix(phoenixApp) {
     });
 
     phoenixApp.get('/phoenix/authNotify', function (req, res) {
-        res.redirect('/phoenix/verify') 
+        res.redirect('/phoenix/verify')
     });
 
     // ----- private API ----------- // 
@@ -77,7 +99,7 @@ function definePhoenix(phoenixApp) {
     });
 };
 
-module.exports = definePhoenix;    
+module.exports = definePhoenix;
 
 function settings(phoenixApp) {
     phoenixApp.set('view engine', 'ejs');

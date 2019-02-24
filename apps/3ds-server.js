@@ -1,12 +1,12 @@
-var path = require('path');
-var express = require('express');
-var morganBody = require('morgan-body');
+const path = require('path');
+const express = require('express');
+const morganBody = require('morgan-body');
 
 function define3dsServer(treeDsServerApp) {
     //--------------- 3DS-Server --------------------------------------//
 
     settings(treeDsServerApp);
-
+    let checkOtpResponse = null;
     treeDsServerApp.post('/3ds-server/api/init', function (req, res) {
 
         setTimeout(sendStatus, 3000);
@@ -44,9 +44,8 @@ function define3dsServer(treeDsServerApp) {
     treeDsServerApp.post('/3ds-server/api/browserInformation', function (req, res) {
         res.sendStatus(200);
     });
-    var checkOtpResponse = null;
-    treeDsServerApp.post('/3ds-server/api/ResultRequest', function (req, res) {
 
+    treeDsServerApp.post('/3ds-server/api/ResultRequest', function (req, res) {
         checkOtpResponse = req.body.checkOtpResponse;
         res.sendStatus(200);
     })

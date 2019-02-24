@@ -1,7 +1,7 @@
-var request = require('request');
-var path = require('path');
-var express = require('express');
-var morganBody = require('morgan-body');
+const request = require('request');
+const path = require('path');
+const express = require('express');
+const morganBody = require('morgan-body');
 
 const DENIED = 'DENIED';
 const AUTHENTICATED = 'AUTHENTICATED';
@@ -10,10 +10,9 @@ function defineACSServer(acsServer) {
 
     settings(acsServer);
 
-    
-    var checkOtpResponse;
-    var message;
-    var checkMessage = {};
+    let checkOtpResponse;
+    let message;
+    let checkMessage = {};
 
 // form per inserimento otp
     acsServer.get('/acs/auth', function (req, res) {
@@ -48,7 +47,6 @@ function defineACSServer(acsServer) {
                                                             //l'indirizzo di ritorno al termine della 
         });
     });
-
 };
 
 module.exports = defineACSServer;
