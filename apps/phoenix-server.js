@@ -17,7 +17,7 @@ function definePhoenix(phoenixApp) {
             json: req.body
         }, function (error, response, body) {
             res.render('phoenix/init', {
-                gdiUrl: body.gdiUrl
+                gdiURL: body.gdiURL
             });
         });
     })
@@ -25,7 +25,7 @@ function definePhoenix(phoenixApp) {
     phoenixApp.get('/phoenix/init', function (req, res) {
 
         res.render('phoenix/init', {
-            gdiUrl: req.query.gdiUrl
+            gdiURL: req.query.gdiURL
         });
 
     })
@@ -37,7 +37,7 @@ function definePhoenix(phoenixApp) {
             json: req.body
         }, function (error, response, body) {
             res.json({
-                gdiUrl: body.gdiUrl
+                gdiURL: body.gdiURL
             });
         });
     })
@@ -70,12 +70,12 @@ function definePhoenix(phoenixApp) {
                 challenge solution via iFrame
 
                 res.render('phoenix/waitingAuth', {
-                    authUrl: body.authUrl
+                    authURL: body.authURL
                 });
                 */
 
                 /* challenge solution via redirect */
-                res.redirect(body.authUrl)
+                res.redirect(body.authURL)
 
             } else {
                 console.log('frictionless not implemented')

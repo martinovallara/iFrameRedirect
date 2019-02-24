@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const morganBody = require('morgan-body');
+const urlSettings = require('../settings.json');
 
 function define3dsServer(treeDsServerApp) {
     //--------------- 3DS-Server --------------------------------------//
@@ -13,7 +14,7 @@ function define3dsServer(treeDsServerApp) {
 
         function sendStatus() {
             res.json({
-                gdiUrl: 'http://localhost:3002/3ds-server/frame'
+                gdiURL: urlSettings.gdiURL //'http://localhost:3002/3ds-server/frame'
             });
         }
     });
@@ -24,7 +25,7 @@ function define3dsServer(treeDsServerApp) {
         function sendStatus() {
             res.json({
                 tranStatus: 'CHALLENGE',
-                authUrl: 'http://localhost:3003/acs/auth'
+                authURL: urlSettings.authURL //'http://localhost:3003/acs/auth'
             });
         }
     });
@@ -36,8 +37,8 @@ function define3dsServer(treeDsServerApp) {
     //---- 3DS-Server -- hidden service ------------//
     treeDsServerApp.get('/3ds-server/frame', function (req, res) {
         res.render('3ds-server/frame', {
-            gdiNotifyUrl: 'http://localhost:3001/phoenix/gdiNotify' // passato dalla init
-            //gdiNotifyUrl: 'http://localhost:3001/phoenix/waitingAuth'
+            gdiNotifyURL: urlSettings.gdiNotifyURL // passato dalla init
+            //gdiNotifyURL: 'http://localhost:3001/phoenix/waitingAuth'
         })
     });
 

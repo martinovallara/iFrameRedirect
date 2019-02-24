@@ -24,7 +24,7 @@ function defineMerchentWebSite(merchantWebSiteApp) {
             res.redirect(url.format({
                 pathname:"http://localhost:3001/phoenix/init",
                 query: {
-                    gdiUrl: body.gdiUrl
+                    gdiURL: body.gdiURL
                  }
               }))
         });

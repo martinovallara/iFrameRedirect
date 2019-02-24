@@ -24,11 +24,11 @@ npm start
 
 ## note
 
-gdiUrl: 'http://localhost:3002/3ds-server/frame'
+gdiURL: 'http://localhost:3002/3ds-server/frame'
 
-authUrl: 'http://localhost:3003/acs/auth'
+authURL: 'http://localhost:3003/acs/auth'
 
-gdiNotifyUrl: 'http://localhost:3001/phoenix/gdiNotify'
+gdiNotifyURL: 'http://localhost:3001/phoenix/gdiNotify'
 
 AuthNotifyUrl: http://localhost:3001/phoenix/authNotify
 
@@ -44,16 +44,16 @@ Uno degli scopi principale dello spike è saggiare l'interazione con l'iframe na
 riporto le specifiche dei fornitori.
 
 
-_il gdiUrl va aperto in un iframe sul sito che sta inizializzando la transazione 3DS.
+_il gdiURL va aperto in un iframe sul sito che sta inizializzando la transazione 3DS.
 Una volta conclusa la parte di acquisizione dati, 
-**l'iframe browser verrà rediretto sul gdiNotifyUrl e a quel punto potrete chiudere l'iframe**._
+**l'iframe browser verrà rediretto sul gdiNotifyURL e a quel punto potrete chiudere l'iframe**._
 
 _Terminata questa fase sarà necessario invocare il metodo auth()_
 
 _- Se non è prevista challenge la transazione 3DS si conclude_
 
-_- Se prevista una challenge sarà necessario aprire redirigere il browser(o aprire un altro iframe) verso l'authUrl.
-Terminata la fase di challenge, il browser verrà rediretto sul authNotifyUrl.
+_- Se prevista una challenge sarà necessario aprire redirigere il browser(o aprire un altro iframe) verso l'authURL.
+Terminata la fase di challenge, il browser verrà rediretto sul authNotifyURL.
 A questo punto dovrete invocare il metodo verify()_
 
 
@@ -78,7 +78,7 @@ Request Body:
 }
 Response Body:
 {
-        "gdiUrl": "http://localhost:3002/3ds-server/frame"
+        "gdiURL": "http://localhost:3002/3ds-server/frame"
 }
 Response: 200 3007.310 ms - 51
 Request: POST /phoenix/init at Fri Feb 22 2019 08:43:42 GMT+0100, User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36
@@ -99,7 +99,7 @@ Response Body:
     <h1>
         Phoenix Domain: Start 3D-Secure authentication
     </h1>
-<p>gdiUrl:http://localhost:3002/3ds-server/frame</p>
+<p>gdiURL:http://localhost:3002/3ds-server/frame</p>
 </body>
 <p>qui sotto c'è un hidden iFrame</p>
 <iframe src="http://localhost:3002/3ds-server/frame" frameborder="1" height="600px" width="600px"></iframe>
@@ -181,7 +181,7 @@ Request: POST /3ds-server/api/auth at Fri Feb 22 2019 08:43:53 GMT+0100, User Ag
 Response Body:
 {
         "tranStatus": "CHALLENGE",
-        "authUrl": "http://localhost:3003/acs/auth"
+        "authURL": "http://localhost:3003/acs/auth"
 }
 Response: 200 3003.681 ms - 69
 Request: GET /phoenix/waitingAuth at Fri Feb 22 2019 08:43:53 GMT+0100, User Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.109 Safari/537.36

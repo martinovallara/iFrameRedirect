@@ -1,0 +1,8 @@
+{
+    "merchant-website": {},
+
+    "gdiURL": "http://localhost:3002/3ds-server/frame",
+    "authURL": "http://localhost:3003/acs/auth",
+    "gdiNotifyURL": "http://localhost:3001/phoenix/gdiNotify",
+    "authNotifyURL": "http://localhost:3001/phoenix/authNotify"
+}

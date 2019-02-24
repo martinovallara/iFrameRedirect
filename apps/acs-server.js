@@ -2,7 +2,7 @@ const request = require('request');
 const path = require('path');
 const express = require('express');
 const morganBody = require('morgan-body');
-
+const urlSettings = require('../settings.json');
 const DENIED = 'DENIED';
 const AUTHENTICATED = 'AUTHENTICATED';
 function defineACSServer(acsServer) {
@@ -41,10 +41,11 @@ function defineACSServer(acsServer) {
                 res.render('acs/auth', checkMessage);
                 return;
             };
-            res.redirect('http://localhost:3001/phoenix/authNotify'); //<<-- fornito dalla init con authNotifyUrl. 
-                                                            //verificare se nella documentazione EMVco 
-                                                            //nella Areq, è prevista un campo dove passare 
-                                                            //l'indirizzo di ritorno al termine della 
+            res.redirect(urlSettings.authNotifyURL); 
+                    // 'http://localhost:3001/phoenix/authNotify'<<-- fornito dalla init con authNotifyURL. 
+                    //verificare se nella documentazione EMVco 
+                    //nella Areq, è prevista un campo dove passare 
+                    //l'indirizzo di ritorno al termine della 
         });
     });
 };
