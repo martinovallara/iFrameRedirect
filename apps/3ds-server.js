@@ -1,7 +1,7 @@
 const path = require('path');
 const express = require('express');
 const morganBody = require('morgan-body');
-const urlSettings = require('../settings.json');
+const urlSettings = require('../config');
 
 function define3dsServer(treeDsServerApp) {
     //--------------- 3DS-Server --------------------------------------//

@@ -2,21 +2,23 @@ const request = require('request');
 const path = require('path');
 const express = require('express');
 const morganBody = require('morgan-body');
-const urlSettings = require('../settings.json');
+const urlSettings = require('../config');;
 const DENIED = 'DENIED';
 const AUTHENTICATED = 'AUTHENTICATED';
+
 function defineACSServer(acsServer) {
     //--------------- ACS-Server --------------------------------------//
 
     settings(acsServer);
 
-    let checkOtpResponse;
     let message;
     let checkMessage = {};
 
-// form per inserimento otp
+    // form per inserimento otp
     acsServer.get('/acs/auth', function (req, res) {
-        checkMessage = { message: message };
+        checkMessage = {
+            message: message
+        };
         message = "";
         res.render('acs/auth', checkMessage);
     });
@@ -28,7 +30,9 @@ function defineACSServer(acsServer) {
         request({
             url: 'http://localhost:3002/3ds-server/api/ResultRequest',
             method: 'POST',
-            json: { checkOtpResponse: checkOtpResponse }
+            json: {
+                checkOtpResponse: checkOtpResponse
+            }
         }, function (error, response, body) {
             if (error != null) {
                 res.sendStatus(500);
@@ -37,15 +41,17 @@ function defineACSServer(acsServer) {
 
             if (checkOtpResponse === DENIED) {
                 message = "codice non valido";
-                checkMessage = { message: message };
+                checkMessage = {
+                    message: message
+                };
                 res.render('acs/auth', checkMessage);
                 return;
             };
-            res.redirect(urlSettings.authNotifyURL); 
-                    // 'http://localhost:3001/phoenix/authNotify'<<-- fornito dalla init con authNotifyURL. 
-                    //verificare se nella documentazione EMVco 
-                    //nella Areq, è prevista un campo dove passare 
-                    //l'indirizzo di ritorno al termine della 
+            res.redirect(urlSettings.authNotifyURL);
+            // 'http://localhost:3001/phoenix/authNotify'<<-- fornito dalla init con authNotifyURL. 
+            //verificare se nella documentazione EMVco 
+            //nella Areq, è prevista un campo dove passare 
+            //l'indirizzo di ritorno al termine della 
         });
     });
 };

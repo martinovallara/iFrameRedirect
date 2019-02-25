@@ -8,7 +8,7 @@
     <script src="/static/scripts/index.js"></script>
 </head>
 
-<body style="background-color:royalblue" >
+<body style="background-color:royalblue">
     <h1>
         3ds-server domain: hidden iframe for send browser information
     </h1>
@@ -18,12 +18,12 @@
         function sendBrowserInformation() {
 
             console.log("send browser info:" + httpPost('/3ds-server/api/browserInformation'))
-            // non si pò elminiare questo "redirect" perchè occorre attendere 
-            // un evento lato client:la fine della chiamata
-            // httpPost '/3ds-server/api/browserInformation'
+            /*
+            implementazione irrilevante al fine dello spike:
+            implementazione 3ds-server
+            */
             window.location.href = "<%= gdiNotifyURL%>"; // passata dalla init
         }
-
     </script>
 </body>
 
